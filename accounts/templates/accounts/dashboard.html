@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mt-4">
+    <h2>Welcome, {{ user.username }}!</h2>
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Logout</button>
+    </form>
+</div>
+<hr>
+
+<div class="my-4">
+    <a href="{% url 'add_debtor' %}" class="btn btn-primary">Add New Debtor</a>
+</div>
+
+<!-- --- this now works on adding that search feature for users to search for debtors --- -->
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="get" action="{% url 'dashboard' %}">
+            <div class="input-group">
+                <input type="text" class="form-control" name="q" placeholder="Search for a debtor by name..." value="{{ request.GET.q }}">
+                <button class="btn btn-outline-secondary" type="submit">Search</button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- --- END OF SEARCH FORM --- -->
+
+
+<h3>Your Debtors</h3>
+<table class="table table-striped table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Name</th>
+            <th>Current Balance</th>
+            <th>Date Added</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for debtor in debtors %}
+        <tr>
+            <td>{{ debtor.name }}</td>
+            <td>Ksh. {{ debtor.get_current_balance }}</td>
+            <td>{{ debtor.created_at|date:"Y-m-d" }}</td>
+            <td>
+                <a href="{% url 'debtor_detail' pk=debtor.pk %}" class="btn btn-sm btn-info">View Details</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4" class="text-center">
+                {% if request.GET.q %}
+                    No debtors found matching your search.
+                {% else %}
+                    You have not added any debtors yet.
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

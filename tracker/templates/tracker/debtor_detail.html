@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="mt-4">
+  <div class="d-flex justify-content-between align-items-center">
+    <a href="{% url 'dashboard' %}">&larr; Back to Dashboard</a>
+    <a href="{% url 'delete_debtor' pk=debtor.pk %}" class="btn btn-danger">Delete This Record</a>
+  </div>
+    <h2 class="mt-2">{{ debtor.name }}</h2>
+    <p><em>{{ debtor.description|default:"No description provided." }}</em></p>
+
+    <div class="row">
+        <!-- Debt Summary -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">Debt Summary</div>
+                <div class="card-body">
+                    <p><strong>Total Initial Debt:</strong> Ksh. {{ debtor.initial_amount }}</p>
+                    <p><strong>Current Balance:</strong> <strong class="text-danger">Ksh. {{ balance }}</strong></p>
+                </div>
+            </div>
+
+            <!-- Add Payment Form -->
+           <!-- Cleaned-up Add Payment Form -->
+		<div class="card mt-4">
+		    <div class="card-header d-flex justify-content-between align-items-center">
+		        <span>Add a Payment (Clear Balance)</span>
+		        <a href="{% url 'add_debt' pk=debtor.pk %}" class="btn btn-sm btn-outline-danger">+ Add Debt</a>
+		    </div>
+		    <div class="card-body">
+		        <form method="post">
+           		    {% csrf_token %}
+		            {{ form.as_p }}
+		            <div class="d-grid">
+                		<button type="submit" class="btn btn-primary">Record Payment</button>
+		            </div>
+        		</form>
+    		</div>
+	</div>
+
+        <!-- Payment History -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">Payment History</div>
+                <ul class="list-group list-group-flush">
+                    {% for payment in payments %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>Ksh. {{ payment.amount }}</span>
+                            <small>{{ payment.payment_date|date:"Y-m-d H:i" }}</small>
+                        </li>
+                    {% empty %}
+                        <li class="list-group-item">No payments have been recorded yet.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
