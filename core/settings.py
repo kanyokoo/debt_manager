@@ -29,9 +29,15 @@ SECRET_KEY = config('SECRET_KEY')
 # It reads the DEBUG value and casts it to a boolean (True/False)
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-RENDER_EXTERNAL_HOSTNAME = config('RENDER_EXTERNAL_HOSTNAME', default='')
+ALLOWED_HOSTS = []
 
-ALLOWED_HOSTS = ['127.0.0.1', RENDER_EXTERNAL_HOSTNAME]
+# Get the hostname from the Render environment variable
+RENDER_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_HOSTNAME)
+
+# Also allow the local development server
+ALLOWED_HOSTS.append('127.0.0.1')
 
 
 # Application definition
