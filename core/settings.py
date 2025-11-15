@@ -29,7 +29,9 @@ SECRET_KEY = config('SECRET_KEY')
 # It reads the DEBUG value and casts it to a boolean (True/False)
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['127.0.0.1']
+RENDER_EXTERNAL_HOSTNAME = config('RENDER_EXTERNAL_HOSTNAME', default='')
+
+ALLOWED_HOSTS = ['127.0.0.1', RENDER_EXTERNAL_HOSTNAME]
 
 
 # Application definition
