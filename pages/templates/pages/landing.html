@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <!-- Hero Section -->
+    <div class="px-4 py-5 my-5 text-center">
+        <h1 class="display-5 fw-bold">Welcome to Debt Manager</h1>
+        <div class="col-lg-6 mx-auto">
+            <p class="lead mb-4">
+                A modern platform to help individuals and enterprises keep track of their debt activities.
+                Easily trace any previous debt without perusing old receipt books or paper records.
+            </p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <a href="{% url 'register' %}" class="btn btn-primary btn-lg px-4 gap-3">Get Started</a>
+                <a href="{% url 'login' %}" class="btn btn-outline-secondary btn-lg px-4">Login</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="py-5">
+        <h2 class="text-center mb-4">Our Services</h2>
+        <div class="row text-center">
+            <div class="col-md-4">
+                <h4>Secure Tracking</h4>
+                <p>All your debt records are tied securely to your account. No one else can see your data.</p>
+            </div>
+            <div class="col-md-4">
+                <h4>Detailed History</h4>
+                <p>Record partial payments or add to existing debts, creating a complete and auditable transaction history.</p>
+            </div>
+            <div class="col-md-4">
+                <h4>Always Accessible</h4>
+                <p>As a web-based platform, your records are available on any device, anywhere in the world.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tips Section -->
+    <div class="py-5 bg-light rounded-3">
+        <div class="container-fluid">
+            <h2 class="text-center mb-4">Tips for Full Utilization</h2>
+            <div class="row">
+                <div class="col-md-8 mx-auto">
+                    <ul>
+                        <li><strong>Use the description field!</strong> When adding a new debtor, add a note about the transaction. It will help you remember the context months later.</li>
+                        <li><strong>Record payments immediately.</strong> The moment you receive a payment, no matter how small, add it to the system to keep balances accurate.</li>
+                        <li><strong>Add new debt clearly.</strong> If a debtor takes another item on credit, use the "+ Add Debt" feature. This maintains a perfect log of all transactions, rather than just changing the initial number.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
